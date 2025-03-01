@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovateTech Solutions</title>
+    <style>
+        /* main Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--light-color);
+        }
+
+        .hero-content {
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1s;
+        }
+
+        /* Services Section */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .service-title {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-description {
+            color: #555;
+        }
+
+        /* About Section */
+        .about {
+            position: relative;
+            background-color: var(--light-color);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .about-text.animate {
+            animation: fadeInLeft 0.6s ease forwards;
+        }
+
+        .about-heading {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .about-description {
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .about-image.animate {
+            animation: fadeInRight 0.6s ease forwards;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Internship Section */
+        .internship {
+            background-color: white;
+        }
+
+        .internship-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .internship-description {
+            margin-bottom: 3rem;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .positions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .position-card {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .position-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .position-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #ddd;
+        }
+
+        .position-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .position-info {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .position-info i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-color);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-form.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-link {
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                width: 40%;
+                opacity: 0.7;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Innovate<span>Tech</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#internship" class="nav-link">Internships</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars">☰</i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Innovative Software Solutions for Modern Challenges</h1>
+                <p class="hero-subtitle">We build cutting-edge software that transforms businesses and empowers growth in the digital age.</p>
+                <a href="#services" class="btn">Our Services</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+            <img src="/api/placeholder/600/400" alt="Software Illustration" class="hero-image" />
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>⚙️</span>
+                    </div>
+                    <h3 class="service-title">Custom Software Development</h3>
+                    <p class="service-description">We build tailored software solutions designed specifically for your business needs and challenges.</p>
+                </div>
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>📱</span>
+                    </div>
+                    <h3 class="service-title">Mobile App Development</h3>
+                    <p class="service-description">Create engaging and functional mobile experiences for iOS and Android platforms.</p>
+                </div>
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>☁️</span>
+                    </div>
+                    <h3 class="service-title">Cloud Services</h3>
+                    <p class="service-description">Leverage the power of cloud computing with our scalable and secure infrastructure solutions.</p>
+                </div>
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>🔒</span>
+                    </div>
+                    <h3 class="service-title">Cybersecurity</h3>
+                    <p class="service-description">Protect your digital assets with our comprehensive security solutions and best practices.</p>
+                </div>
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>📊</span>
+                    </div>
+                    <h3 class="service-title">Data Analytics</h3>
+                    <p class="service-description">Transform your data into actionable insights with our advanced analytics solutions.</p>
+                </div>
+                <div class="service-card" data-animation="fadeInUp">
+                    <div class="service-icon">
+                        <span>🤖</span>
+                    </div>
+                    <h3 class="service-title">AI & Machine Learning</h3>
+                    <p class="service-description">Implement intelligent automation and predictive capabilities into your business processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text" data-animation="fadeInLeft">
+                    <h3 class="about-heading">Pioneering Innovation in Software Development</h3>
+                    <p class="about-description">At InnovateTech, we are passionate about creating software solutions under 'Snowflakes Foundation' that drive business transformation and success. With a team of experienced developers, designers, and consultants, we deliver high-quality, scalable, and secure applications that address complex business challenges.</p>
+                    <p class="about-description">Our approach combines technical expertise with a deep understanding of business needs, allowing us to create solutions that not only solve immediate problems but also support long-term growth and innovation.</p>
+                    <a href="#contact" class="btn">Get Started</a>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-title">Projects Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-title">Happy Clients</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-title">Expert Teams</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image" data-animation="fadeInRight">
+                    <img src="/api/placeholder/500/400" alt="Our Team Working" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internship Section -->
+    <section class="section internship" id="internship">
+        <div class="container">
+            <h2 class="section-title">Internship Opportunities</h2>
+            <div class="internship-content">
+                <p class="internship-description">We believe in nurturing talent and providing valuable learning experiences. Our internship program offers students the opportunity to work on real-world projects while receiving mentorship from industry experts.</p>
+                <a href="#contact" class="btn">Apply Now</a>
+                
+                <div class="positions">
+                    <div class="position-card" data-animation="fadeInUp">
+                        <h3 class="position-title">Front-End Development Intern</h3>
+                        <p class="position-info"><i>⏲️</i> Duration: 3-6 months</p>
+                        <p class="position-info"><i>💼</i> Type: Part-time/Full-time</p>
+                        <p class="position-info"><i>🎓</i> Required: HTML, CSS, JavaScript</p>
+                    </div>
+                    <div class="position-card" data-animation="fadeInUp">
+                        <h3 class="position-title">Back-End Development Intern</h3>
+                        <p class="position-info"><i>⏲️</i> Duration: 3-6 months</p>
+                        <p class="position-info"><i>💼</i> Type: Part-time/Full-time</p>
+                        <p class="position-info"><i>🎓</i> Required: Python/Java/Node.js</p>
+                    </div>
+                    <div class="position-card" data-animation="fadeInUp">
+                        <h3 class="position-title">Mobile App Development Intern</h3>
+                        <p class="position-info"><i>⏲️</i> Duration: 3-6 months</p>
+                        <p class="position-info"><i>💼</i> Type: Part-time/Full-time</p>
+                        <p class="position-info"><i>🎓</i> Required: Flutter/React Native</p>
+                    </div>
+                    <div class="position-card" data-animation="fadeInUp">
+                        <h3 class="position-title">UI/UX Design Intern</h3>
+                        <p class="position-info"><i>⏲️</i> Duration: 3-6 months</p>
+                        <p class="position-info"><i>💼</i> Type: Part-time/Full-time</p>
+                        <p class="position-info"><i>🎓</i> Required: Figma/Adobe XD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <form class="contact-form" data-animation="fadeInUp">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" class="form-input" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" class="form-input form-textarea" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>InnovateTech</h3>
+                    <p>Pioneering innovation in software development and digital solutions for businesses worldwide.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">fb</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home" class="footer-link">Home</a>
+                    <a href="#services" class="footer-link">Services</a>
+                    <a href="#about" class="footer-link">About Us</a>
+                    <a href="#internship" class="footer-link">Internships</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <a href="#" class="footer-link">Custom Software</a>
+                    <a href="#" class="footer-link">Mobile Apps</a>
+                    <a href="#" class="footer-link">Cloud Services</a>
+                    <a href="#" class="footer-link">Cybersecurity</a>
+                    <a href="#" class="footer-link">Data Analytics</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p>Amravati Street</p>
+                    <p>New town badenra, TX 444701</p>
+                    <p>snowflakesfoundation@gmail.com</p>
+                    <p>+91 (741) 493-0335</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InnovateTech Solutions. Snowflakes foundation All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('[data-animation]');
+        
+        function checkIfInView() {
+            animateElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        // Initial check
+        checkIfInView();
+
+        // Check on scroll
+        window.addEventListener('scroll', checkIfInView);
+
+        // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
