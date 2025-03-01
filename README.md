@@ -16,7 +16,7 @@ This is an **another demo** of the **Innovative Software Solutions** website, de
 - **JavaScript** - For interactive elements  
 
 ## 📸 Preview  
-
+https://manishsnowflakes.github.io/software-company-website-v2/
 
 ## 🚀 Installation  
 1. Clone the repository:  
